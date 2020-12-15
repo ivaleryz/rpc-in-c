@@ -15,6 +15,8 @@ include(cmake/Sanitizers.cmake)
 add_library(sanitizers INTERFACE)
 set_sanitizers(sanitizers)
 
+add_subdirectory(external)
+
 add_library(rpc)
 add_library(net::rpc ALIAS rpc)
 
@@ -25,5 +27,5 @@ target_sources(rpc PRIVATE
 target_include_directories(rpc PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
 target_link_libraries(rpc
-    PRIVATE project_warnings sanitizers
+    PRIVATE project_warnings sanitizers net::stream
 )
