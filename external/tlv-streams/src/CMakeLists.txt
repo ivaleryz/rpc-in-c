@@ -5,7 +5,7 @@ target_sources(stream PRIVATE
     stream.c
 )
 
-target_include_directories(stream PUBLIC ${CMAKE_SOURCE_DIR}/include)
+target_include_directories(stream PUBLIC ${${PROJECT_NAME}_SOURCE_DIR}/include)
 
 target_link_libraries(stream
     PRIVATE ${PROJECT_NAME}_project_warnings ${PROJECT_NAME}_sanitizers
@@ -15,7 +15,7 @@ set_target_properties(stream
   PROPERTIES
     OUTPUT_NAME "stream"
     PUBLIC_HEADER 
-        ${CMAKE_SOURCE_DIR}/include/stream.h
+        ${${PROJECT_NAME}_SOURCE_DIR}/include/stream.h
   )
 
 install(
