@@ -16,16 +16,4 @@ add_library(sanitizers INTERFACE)
 set_sanitizers(sanitizers)
 
 add_subdirectory(external)
-
-add_library(rpc)
-add_library(net::rpc ALIAS rpc)
-
-target_sources(rpc PRIVATE
-    src/rpc.c
-)
-
-target_include_directories(rpc PUBLIC ${CMAKE_SOURCE_DIR}/include)
-
-target_link_libraries(rpc
-    PRIVATE project_warnings sanitizers net::stream
-)
+add_subdirectory(src)

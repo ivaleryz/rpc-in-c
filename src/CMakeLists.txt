@@ -1,0 +1,15 @@
+add_library(rpc)
+add_library(net::rpc ALIAS rpc)
+
+target_sources(rpc PRIVATE
+    crpc/_mul_int.c
+    crpc/mul_int.c
+)
+target_include_directories(rpc 
+    PUBLIC ${CMAKE_SOURCE_DIR}/include
+    PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/internal
+)
+
+target_link_libraries(rpc
+    PRIVATE project_warnings sanitizers net::stream
+)
