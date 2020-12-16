@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 
-project(rpc C)
+project(cRPC C)
 
 set(C_STANDARD 11)
 
