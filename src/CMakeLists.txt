@@ -11,5 +11,5 @@ target_include_directories(rpc
 )
 
 target_link_libraries(rpc
-    PRIVATE project_warnings sanitizers net::stream
+    PRIVATE ${PROJECT_NAME}_project_warnings ${PROJECT_NAME}_sanitizers net::stream
 )

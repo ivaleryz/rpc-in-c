@@ -5,15 +5,15 @@ project(cRPC C)
 set(C_STANDARD 11)
 
 include(cmake/CompilerWarnings.cmake)
-add_library(project_warnings INTERFACE)
-set_project_warnings(project_warnings)
+add_library(${PROJECT_NAME}_project_warnings INTERFACE)
+set_project_warnings(${PROJECT_NAME}_project_warnings)
 
 include(cmake/EnableTests.cmake)
 include(cmake/BuildType.cmake)
 
 include(cmake/Sanitizers.cmake)
-add_library(sanitizers INTERFACE)
-set_sanitizers(sanitizers)
+add_library(${PROJECT_NAME}_sanitizers INTERFACE)
+set_sanitizers(${PROJECT_NAME}_sanitizers)
 
 add_subdirectory(external)
 add_subdirectory(src)
