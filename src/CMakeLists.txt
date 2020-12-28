@@ -1,3 +1,5 @@
+add_subdirectory(network)
+
 add_library(rpc)
 add_library(net::rpc ALIAS rpc)
 
