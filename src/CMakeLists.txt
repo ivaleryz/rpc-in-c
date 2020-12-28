@@ -7,7 +7,7 @@ target_sources(network
 )
 
 target_include_directories(network
-    PUBLIC ${${PROJECT_NAME}_SOURCE_DIR}/include/network
+    PUBLIC ${${PROJECT_NAME}_SOURCE_DIR}/include
     PRIVATE ${${PROJECT_NAME}_SOURCE_DIR}/src/internal
 )
 

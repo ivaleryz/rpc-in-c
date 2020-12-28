@@ -9,7 +9,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include "network.h"
+#include "network/network.h"
 
 #define NET_MAX_BUFFER_SIZE 1024
 
