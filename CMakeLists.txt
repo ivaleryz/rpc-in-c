@@ -15,5 +15,4 @@ include(cmake/Sanitizers.cmake)
 add_library(${PROJECT_NAME}_sanitizers INTERFACE)
 set_sanitizers(${PROJECT_NAME}_sanitizers)
 
-# add_subdirectory(external)
 add_subdirectory(src)
