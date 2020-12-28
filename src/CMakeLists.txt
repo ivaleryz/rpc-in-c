@@ -1,4 +1,5 @@
 add_subdirectory(network)
+add_subdirectory(serialization)
 
 add_library(rpc)
 add_library(net::rpc ALIAS rpc)
