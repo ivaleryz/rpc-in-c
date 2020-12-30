@@ -3,7 +3,8 @@
 
 #include "crpc.h"
 
-int _rpc_mul_int(const int a, const int b);
-
+int _crpc_init(crpc_t*        crpc,
+               const char*    remote_host,
+               const uint16_t remote_port);
 
 #endif
