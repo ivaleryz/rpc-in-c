@@ -4,16 +4,16 @@
 #include <assert.h>
 #include <stdbool.h>
 #include <stddef.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdint.h>
 
 #define STREAM_DEF_SIZE 512
 
 enum { ERROR = -1, SUCCESS = 0 };
 
 typedef struct {
-  char *buffer;
+  char * buffer;
   size_t size;
   size_t next;
   size_t checkpoint;
@@ -22,17 +22,20 @@ typedef struct {
 void stream_init(stream_t **stream);
 void stream_init_size(stream_t **stream, const size_t stream_size);
 
-void stream_ser_string(stream_t *stream, const char *data,
+void stream_ser_string(stream_t *   stream,
+                       const char * data,
                        const size_t data_size);
 
 void stream_des_string(char *buffer, stream_t *stream, const size_t size);
 
 int stream_is_empty(const stream_t *stream);
 
-int stream_insert_offset(stream_t *stream, const char *data,
-                         const size_t data_size, const size_t start_offset);
+int stream_insert_offset(stream_t *   stream,
+                         const char * data,
+                         const size_t data_size,
+                         const size_t start_offset);
 
-void stream_set_checkpoint(stream_t *stream);
+void   stream_set_checkpoint(stream_t *stream);
 size_t stream_get_checkpoint(const stream_t *stream);
 
 /**
@@ -45,5 +48,18 @@ size_t stream_get_checkpoint(const stream_t *stream);
 void stream_skip(stream_t *stream, const int64_t bytes_skip);
 
 void stream_free(stream_t *stream);
+
+/**
+ * @brief Copy into 'in' stream the data
+ *
+ * @param in        The stream to copy into
+ * @param data      The data to copy
+ * @param data_size The data size
+ * @param offset    From where to start to copy
+ */
+void stream_copy_in_offset(stream_t *   in,
+                           const char * data,
+                           const size_t data_size,
+                           const size_t offset);
 
 #endif
