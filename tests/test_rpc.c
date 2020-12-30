@@ -70,6 +70,7 @@ static void *server_thread(void *arg) {
   int rc = crpc_release_server(context);
   assert(rc == CRPC_OK);
 
+  (void)rc;
   return NULL;
 }
 
@@ -88,6 +89,7 @@ static void *client_thread(void *arg) {
   rc = crpc_release_client(context);
   assert(rc == CRPC_OK);
 
+  (void)rc;
   return NULL;
 }
 
