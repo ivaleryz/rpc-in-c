@@ -5,6 +5,15 @@
 #include <stream.h>
 
 enum {
+  CRPC_TYPE_ADD,
+};
+
+typedef struct {
+  uint8_t type;
+  size_t  data_size;
+} crpc_hdr_t;
+
+enum {
   CRPC_OK = 0,
   CRPC_ERR_INVALID = -1,
   CRPC_ERR_START = -2,

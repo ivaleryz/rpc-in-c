@@ -11,14 +11,25 @@ static int rpc_call_hanlder(int          sender,
                             void *       buffer,
                             const size_t buffer_size,
                             void *       client_addr) {
-  fprintf(stdout,
-          "[D]: Msg handler: buffer -> %d\n\tbuffer size -> %zu\n\t",
-          *((int *)buffer),
-          buffer_size);
+  (void)buffer_size;
+
+  crpc_hdr_t *rpc_hdr = (crpc_hdr_t *)buffer;
+  switch (rpc_hdr->type) {
+    case CRPC_TYPE_ADD:
+      fprintf(stdout, "[D]: rpc_call_hanlder: ADD\n");
+      fprintf(stdout, "\tdata_size -> %zu\n", rpc_hdr->data_size);
+      break;
+
+    default:
+      fprintf(stdout, "[D]: rpc_call_hanlder: Unknown type\n");
+      break;
+  }
 
   stream_t *recv_buff = NULL;
-  stream_init_size(&recv_buff, buffer_size);
-  memcpy(recv_buff->buffer, buffer, buffer_size);
+  stream_init_size(&recv_buff, rpc_hdr->data_size);
+  memcpy(recv_buff->buffer,
+         (char *)buffer + sizeof(crpc_hdr_t),
+         rpc_hdr->data_size);
 
   int num_one = -1;
   int num_two = -1;

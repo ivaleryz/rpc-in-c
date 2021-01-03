@@ -10,7 +10,7 @@ static void _stream_serialize(stream_t *stream, const char *data,
   size_t available_size = stream->size - stream->next;
   bool is_resize = false;
 
-  while (available_size <= data_size) {
+  while (available_size < data_size) {
     stream->size = stream->size * 2;
     available_size = stream->size - stream->next;
     is_resize = true;
@@ -150,4 +150,15 @@ void stream_free(stream_t *stream) {
   stream->checkpoint = 0;
 
   free(stream);
+}
+
+void stream_copy_in_offset(stream_t *in,
+                          const char *data,
+                          const size_t data_size,
+                          const size_t offset){
+  if(offset > in->size){
+    return;
+  }
+
+  memcpy(in->buffer + offset, data, data_size);
 }

@@ -10,12 +10,30 @@ int crpc_add(crpc_t *context, const int a, const int b) {
   (void)context;
   (void)b;
 
-  stream_t *send_buffer;
-  stream_init_size(&send_buffer, ADD_CALL_ARG_NUM * sizeof(int));
-  assert(send_buffer->size == (ADD_CALL_ARG_NUM * sizeof(int)));
+  const size_t data_size = ADD_CALL_ARG_NUM * sizeof(int);
 
-  stream_ser_string(send_buffer, (const char *)&a, sizeof(int));
-  stream_ser_string(send_buffer, (const char *)&b, sizeof(int));
+  stream_t *argument_buff = NULL;
+  stream_init_size(&argument_buff, ADD_CALL_ARG_NUM * sizeof(int));
+
+  stream_ser_string(argument_buff, (const char *)&a, sizeof(int));
+  stream_ser_string(argument_buff, (const char *)&b, sizeof(int));
+
+  stream_t *send_buffer = NULL;
+  stream_init_size(&send_buffer, data_size + sizeof(crpc_hdr_t));
+  crpc_hdr_t rpc_hdr = {.type = CRPC_TYPE_ADD,
+                        .data_size = argument_buff->size};
+
+  /* Copy RPC Header */
+  stream_copy_in_offset(send_buffer,
+                        (const char *)&rpc_hdr,
+                        sizeof(crpc_hdr_t),
+                        0);
+
+  /* Copy Argument buffer */
+  stream_copy_in_offset(send_buffer,
+                        argument_buff->buffer,
+                        argument_buff->size,
+                        sizeof(crpc_hdr_t));
 
   char * resp_buff = NULL;
   size_t resp_buff_size = net_send_data_udp(context->client,
@@ -38,6 +56,7 @@ int crpc_add(crpc_t *context, const int a, const int b) {
   fprintf(stdout, "[D]: response -> %d\n", num);
 
   /* Release resources */
+  stream_free(argument_buff);
   stream_free(send_buffer);
   stream_free(recv_buffer);
 
