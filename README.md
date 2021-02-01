@@ -2,6 +2,7 @@
 RPC implementation in C
 
 # Architecture
+```
 
        CLIENT                                      SERVER
 
@@ -18,4 +19,4 @@ RPC implementation in C
         |                                           |
         ---------------------------------------------
 
----
+```
